@@ -1,7 +1,7 @@
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
-pub struct TemplateApp {
+pub struct DemoApp {
     // Example stuff:
     label: String,
 
@@ -10,7 +10,7 @@ pub struct TemplateApp {
     value: f32,
 }
 
-impl Default for TemplateApp {
+impl Default for DemoApp {
     fn default() -> Self {
         Self {
             // Example stuff:
@@ -20,7 +20,7 @@ impl Default for TemplateApp {
     }
 }
 
-impl TemplateApp {
+impl DemoApp {
     /// Called once before the first frame.
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         // This is also where you can customized the look at feel of egui using
@@ -36,7 +36,7 @@ impl TemplateApp {
     }
 }
 
-impl eframe::App for TemplateApp {
+impl eframe::App for DemoApp {
     /// Called by the frame work to save state before shutdown.
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
         eframe::set_value(storage, eframe::APP_KEY, self);
@@ -64,18 +64,13 @@ impl eframe::App for TemplateApp {
             });
         });
 
-        egui::SidePanel::left("side_panel").show(ctx, |ui| {
-            ui.heading("Side Panel");
+        egui::SidePanel::right("side_panel").show(ctx, |ui| {
+            ui.heading("Friend List");
 
             ui.horizontal(|ui| {
                 ui.label("Write something: ");
                 ui.text_edit_singleline(label);
             });
-
-            ui.add(egui::Slider::new(value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                *value += 1.0;
-            }
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 ui.horizontal(|ui| {
@@ -103,14 +98,5 @@ impl eframe::App for TemplateApp {
             ));
             egui::warn_if_debug_build(ui);
         });
-
-        if false {
-            egui::Window::new("Window").show(ctx, |ui| {
-                ui.label("Windows can be moved by dragging them.");
-                ui.label("They are automatically sized based on contents.");
-                ui.label("You can turn on resizing and scrolling if you like.");
-                ui.label("You would normally chose either panels OR windows.");
-            });
-        }
     }
 }
