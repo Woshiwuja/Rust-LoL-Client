@@ -1,4 +1,5 @@
 #![warn(clippy::all, rust_2018_idioms)]
 
-mod app;
-pub use app::DemoApp;
+pub mod apps;
+pub use wrap_app::WrapApp;
+mod wrap_app;

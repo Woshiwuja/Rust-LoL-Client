@@ -9,8 +9,8 @@ fn main() {
 
     let native_options = eframe::NativeOptions::default();
     eframe::run_native(
-        "eframe template",
+        "LoL Client",
         native_options,
-        Box::new(|cc| Box::new(rust_lol_client::DemoApp::new(cc))),
+        Box::new(|cc| Box::new(rust_lol_client::WrapApp::new(cc))),
     );
 }
