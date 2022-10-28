@@ -39,23 +39,14 @@ impl eframe::App for HomeApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        let Self { label } = self;
+        let Self { label,} = self;
 
         // Examples of how to create different panels and windows.
         // Pick whichever suits you.
         // Tip: a good default choice is to just keep the `CentralPanel`.
         // For inspiration and more examples, go to https://emilk.github.io/egui
 
-        egui::SidePanel::right("side_panel")
-            .resizable(false)
-            .show(ctx, |ui| {
-                ui.heading("Friend List");
 
-                ui.horizontal(|ui| {
-                    ui.label("Write something: ");
-                    ui.text_edit_singleline(label);
-                });
-            });
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // The central panel the region left after adding TopPanel's and SidePanel's

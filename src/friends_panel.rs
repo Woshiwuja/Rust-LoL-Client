@@ -37,7 +37,7 @@ enum RunMode {
 ///    so there are no events to miss.
 impl Default for RunMode {
     fn default() -> Self {
-        RunMode::Reactive
+        RunMode::Continuous
     }
 }
 
@@ -103,19 +103,9 @@ impl FriendsPanel {
 
     pub fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         egui::trace!(ui);
-
-        self.integration_ui(ui, frame);
-
         ui.separator();
-
         self.run_mode_ui(ui);
-
         ui.separator();
-
-        self.frame_history.ui(ui);
-
-        ui.separator();
-
         ui.label("egui windows:");
         self.egui_windows.checkboxes(ui);
 
@@ -248,9 +238,9 @@ impl FriendsPanel {
         ui.horizontal(|ui| {
             let run_mode = &mut self.run_mode;
             ui.label("Mode:");
-            ui.radio_value(run_mode, RunMode::Reactive, "Reactive")
+            ui.radio_value(run_mode, RunMode::Reactive, "Low Spec")
                 .on_hover_text("Repaint when there are animations or input (e.g. mouse movement)");
-            ui.radio_value(run_mode, RunMode::Continuous, "Continuous")
+            ui.radio_value(run_mode, RunMode::Continuous, "High Spec")
                 .on_hover_text("Repaint everything each frame");
         });
 
@@ -316,11 +306,6 @@ impl EguiWindows {
             output_events,
             output_event_history: _,
         } = self;
-
-        ui.checkbox(settings, "🔧 Settings");
-        ui.checkbox(inspection, "🔍 Inspection");
-        ui.checkbox(memory, "📝 Memory");
-        ui.checkbox(output_events, "📤 Output Events");
     }
 
     fn windows(&mut self, ctx: &egui::Context) {

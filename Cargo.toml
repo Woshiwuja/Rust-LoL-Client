@@ -13,6 +13,8 @@ egui = "0.19.0"
 eframe = { version = "0.19.0", features = ["persistence"] }
 serde = { version = "1", features = ["derive"] } # You only need this if you want app persistence
 frame = "0.0.0"
+ehttp = "0.2.0"
+reqwest = "0.11.12"
 
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
